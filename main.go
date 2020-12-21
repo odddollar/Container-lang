@@ -6,6 +6,6 @@ import (
 )
 
 func main() {
-	lines := tokens.ReadFileLines("file.seu")
+	lines := tokens.ReadFileLines("file.cnl")
 	fmt.Println(tokens.MakeLineTokens(lines))
 }
