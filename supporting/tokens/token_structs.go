@@ -5,3 +5,9 @@ type ContainerToken struct {
 	Id int
 	Value string
 }
+
+type VarToken struct {
+	Id int
+	Variable string
+	Value string
+}
