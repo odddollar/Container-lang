@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func MakeLineTokens(fileLines []string) []ContainerToken {
+func MakeContainerTokens(fileLines []string) []ContainerToken {
 	// take in array of file lines, create array of pre-processed container tokens
 	var lineTokens []ContainerToken
 
