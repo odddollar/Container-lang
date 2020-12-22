@@ -1,9 +1,16 @@
 package tokens
 
-import "strings"
+import (
+	"regexp"
+	"strconv"
+	"strings"
+)
 
-func MakeLineTokens(fileLines []string) []string {
-	var lineTokens []string
+func MakeLineTokens(fileLines []string) []ContainerToken {
+	var lineTokens []ContainerToken
+
+	idRegexFromLIne, _ := regexp.Compile("{\\s*\\d*\\s*\\|")
+	idRegex, _ := regexp.Compile("\\d+")
 
 	for i := 0; i < len(fileLines); i++ {
 		lineSplit := strings.Split(fileLines[i], "")
@@ -12,10 +19,17 @@ func MakeLineTokens(fileLines []string) []string {
 
 		for j := 0; j < len(lineSplit); j++ {
 			if lineSplit[j] == "{" {
-				start = j + 1
+				start = j
 			}
 			if lineSplit[j] == "}" {
-				lineTokens = append(lineTokens, strings.Join(lineSplit[start:j], ""))
+				container := strings.Join(lineSplit[start:j+1], "")
+
+				idPartPos := idRegexFromLIne.FindStringIndex(container)
+
+				id, _ := strconv.Atoi(idRegex.FindString(container[idPartPos[0]:idPartPos[1]]))
+				line := strings.TrimSpace(strings.ReplaceAll(container[idPartPos[1]:], "}", ""))
+
+				lineTokens = append(lineTokens, ContainerToken{Id: id, Value: line})
 			}
 		}
 	}
