@@ -8,7 +8,7 @@ import (
 func MakeLineTokens(container ContainerToken) (VarToken, FunctionToken) {
 	// compile regexes for checking if variable operation or function
 	varRegex, _ := regexp.Compile("(<-)")
-	funcRegex, _ := regexp.Compile("(FOR|PRINT)")
+	funcRegex, _ := regexp.Compile("(PRINT)")
 
 	// check if variable or function token should be created
 	if len(varRegex.FindStringIndex(container.Value)) != 0 {
