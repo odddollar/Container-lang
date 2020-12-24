@@ -1,7 +1,6 @@
 package tokens
 
 import (
-	"github.com/pkg/errors"
 	"log"
 	"regexp"
 	"strconv"
@@ -21,7 +20,7 @@ func MakeContainerTokens(fileLines []string) []ContainerToken {
 		// split line into characters
 		lineSplit := strings.Split(fileLines[i], "")
 
-		start := 0
+		start := -1
 
 		// iterate through characters in current line
 		for j := 0; j < len(lineSplit); j++ {
@@ -30,7 +29,7 @@ func MakeContainerTokens(fileLines []string) []ContainerToken {
 				start = j
 			}
 			// run when end of container found
-			if lineSplit[j] == "}" {
+			if lineSplit[j] == "}" && start != -1{
 				// separate current container into string
 				container := strings.Join(lineSplit[start:j+1], "")
 
@@ -39,7 +38,7 @@ func MakeContainerTokens(fileLines []string) []ContainerToken {
 
 				// check that an id has been provided
 				if len(idPartPos) == 0 {
-					log.Fatal(errors.New("Syntax error: Line " + strconv.Itoa(i+1) + ": No container ID found"))
+					log.Fatal("Syntax error: Line " + strconv.Itoa(i+1) + ": No valid container ID found")
 				}
 
 				// find id within first part of container and convert to int
@@ -50,6 +49,11 @@ func MakeContainerTokens(fileLines []string) []ContainerToken {
 
 				// append container token to list
 				lineTokens = append(lineTokens, ContainerToken{Id: id, Value: line})
+
+				// reset start to -1 to search for missing {
+				start = -1
+			} else if lineSplit[j] == "}" && start == -1 {
+				log.Fatal("Syntax error: Line " + strconv.Itoa(i+1) + ": Found } with no {")
 			}
 		}
 	}
