@@ -24,10 +24,6 @@ func MakeContainerTokens(fileLines []string) []ContainerToken {
 
 		// iterate through characters in current line
 		for j := 0; j < len(lineSplit); j++ {
-			// set start to current position when opening of container found
-			if lineSplit[j] == "{" {
-				start = j
-			}
 			// run when end of container found
 			if lineSplit[j] == "}" && start != -1{
 				// separate current container into string
@@ -54,10 +50,13 @@ func MakeContainerTokens(fileLines []string) []ContainerToken {
 				start = -1
 			} else if lineSplit[j] == "}" && start == -1 { // check for missing {
 				log.Fatal("Syntax error: Line " + strconv.Itoa(i+1) + ": Found } with no {")
-			}
-			// check for missing }
-			if start != -1 && j == len(lineSplit)-1 {
+			} else if (start != -1 && j == len(lineSplit)-1) || (start != -1 && lineSplit[j] == "{") { // check for missing }
 				log.Fatal("Syntax error: Line " + strconv.Itoa(i+1) + ": Found { with no }")
+			}
+			// set start to current position when opening of container found
+			// must run after } search in order to allow missing } syntax error
+			if lineSplit[j] == "{" {
+				start = j
 			}
 		}
 	}
