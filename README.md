@@ -6,7 +6,7 @@ Container-lang is a lightweight interpreted scripting language based on the idea
 
 ### Code containers
 
-Code containers are the same as a line in other languages, however have a numerical id that allows them to be referenced later, meaning the same container can be used many times. Additionally, containers can be placed sequentially on one line, allowing for whole programs to be written on one line.
+Code containers are the same as a line in other languages, however have a numerical ID that allows them to be referenced later, meaning the same container can be used many times. Additionally, containers can be placed sequentially on one line, allowing for whole programs to be written on one line.
 
 A container is created with the syntax `{UNIQUE_NUMERICAL_ID|CODE}`. All code is required to be placed in a container
 

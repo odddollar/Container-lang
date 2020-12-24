@@ -1,6 +1,8 @@
 package tokens
 
 import (
+	"github.com/pkg/errors"
+	"log"
 	"regexp"
 	"strconv"
 	"strings"
@@ -34,6 +36,11 @@ func MakeContainerTokens(fileLines []string) []ContainerToken {
 
 				// get position of id part of container using regex
 				idPartPos := idRegexFromLIne.FindStringIndex(container)
+
+				// check that an id has been provided
+				if len(idPartPos) == 0 {
+					log.Fatal(errors.New("Syntax error: Line " + strconv.Itoa(i+1) + ": No container ID found"))
+				}
 
 				// find id within first part of container and convert to int
 				id, _ := strconv.Atoi(idRegex.FindString(container[idPartPos[0]:idPartPos[1]]))
