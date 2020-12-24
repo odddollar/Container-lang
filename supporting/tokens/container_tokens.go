@@ -52,8 +52,12 @@ func MakeContainerTokens(fileLines []string) []ContainerToken {
 
 				// reset start to -1 to search for missing {
 				start = -1
-			} else if lineSplit[j] == "}" && start == -1 {
+			} else if lineSplit[j] == "}" && start == -1 { // check for missing {
 				log.Fatal("Syntax error: Line " + strconv.Itoa(i+1) + ": Found } with no {")
+			}
+			// check for missing }
+			if start != -1 && j == len(lineSplit)-1 {
+				log.Fatal("Syntax error: Line " + strconv.Itoa(i+1) + ": Found { with no }")
 			}
 		}
 	}
