@@ -30,7 +30,7 @@ func MakeLineTokens(container ContainerToken) Token {
 		// return new token struct with only relevant function field filled
 		return Token{Id: container.Id, FunctionToken: FunctionToken{Function: function, Arguments: arguments}}
 	} else {
-		log.Fatal("Syntax error: Container ID " + strconv.Itoa(container.Id) + ": Unrecognised request: " + container.Value)
+		log.Fatal("Runtime error: Container ID " + strconv.Itoa(container.Id) + ": Unrecognised request: " + container.Value)
 	}
 
 	return Token{}

@@ -52,10 +52,7 @@ func MakeContainerTokens(fileLines []string) []ContainerToken {
 				log.Fatal("Syntax error: Line " + strconv.Itoa(i+1) + ": Found } with no {")
 			} else if (start != -1 && j == len(lineSplit)-1) || (start != -1 && lineSplit[j] == "{") { // check for missing }
 				log.Fatal("Syntax error: Line " + strconv.Itoa(i+1) + ": Found { with no }")
-			}
-			// set start to current position when opening of container found
-			// must run after } search in order to allow missing } syntax error
-			if lineSplit[j] == "{" {
+			} else if lineSplit[j] == "{" { // set start to current position when opening of container found. must run after } search in order to allow missing } syntax error
 				start = j
 			}
 		}
