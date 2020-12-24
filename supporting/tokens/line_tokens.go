@@ -1,14 +1,16 @@
 package tokens
 
 import (
+	"log"
 	"regexp"
+	"strconv"
 	"strings"
 )
 
 func MakeLineTokens(container ContainerToken) Token {
 	// compile regexes for checking if variable operation or function
 	varRegex, _ := regexp.Compile("(<-)")
-	funcRegex, _ := regexp.Compile("(PRINT)")
+	funcRegex, _ := regexp.Compile("(PRINT\\s)")
 
 	// check if variable or function token should be created
 	if len(varRegex.FindStringIndex(container.Value)) != 0 {
@@ -27,6 +29,8 @@ func MakeLineTokens(container ContainerToken) Token {
 
 		// return new token struct with only relevant function field filled
 		return Token{Id: container.Id, FunctionToken: FunctionToken{Function: function, Arguments: arguments}}
+	} else {
+		log.Fatal("Syntax error: Container ID " + strconv.Itoa(container.Id) + ": Unrecognised request: " + container.Value)
 	}
 
 	return Token{}
