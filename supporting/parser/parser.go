@@ -4,6 +4,7 @@ import (
 	"../structs"
 	"./functions"
 	"fmt"
+	"strconv"
 )
 
 func Parse(token structs.Token, tokenList []structs.Token) {
@@ -14,7 +15,14 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 		if token.FunctionToken.Function == "PRINT" { // run print function
 			functions.Print(token.FunctionToken.Arguments)
 		} else if token.FunctionToken.Function == "EXECUTE" { // run execute stuff
-			fmt.Println("execute function")
+			// get id of container to execute
+			idToExecute, _ := strconv.Atoi(token.FunctionToken.Arguments)
+
+			// return token after finding it in list
+			executedToken := getContainerById(idToExecute, tokenList, token.Id)
+
+			// recursively call parser function with new token
+			Parse(executedToken, tokenList)
 		}
 	}
 }
