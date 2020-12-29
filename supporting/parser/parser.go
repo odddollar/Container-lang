@@ -4,6 +4,7 @@ import (
 	"../structs"
 	"./functions"
 	"fmt"
+	"log"
 	"strconv"
 )
 
@@ -16,7 +17,10 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 			functions.Print(token.FunctionToken.Arguments, token.Id)
 		} else if token.FunctionToken.Function == "EXECUTE" { // run execute stuff
 			// get id of container to execute
-			idToExecute, _ := strconv.Atoi(token.FunctionToken.Arguments)
+			idToExecute, err := strconv.Atoi(token.FunctionToken.Arguments)
+			if err != nil {
+				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Non-numerical ID supplied")
+			}
 
 			// return token after finding it in list
 			executedToken := getContainerById(idToExecute, tokenList, token.Id)
