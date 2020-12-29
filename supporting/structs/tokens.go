@@ -1,4 +1,4 @@
-package tokens
+package structs
 
 // basic container token with container id and value, ready for lexing
 type ContainerToken struct {

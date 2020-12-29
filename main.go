@@ -1,12 +1,13 @@
 package main
 
 import (
+	"./supporting/structs"
 	"./supporting/tokens"
 	"fmt"
 )
 
 func main() {
-	var tokenList []tokens.Token
+	var tokenList []structs.Token
 
 	lines := tokens.ReadFileLines("file.cnl")
 	containerTokenList := tokens.MakeContainerTokens(lines)

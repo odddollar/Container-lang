@@ -1,15 +1,16 @@
 package tokens
 
 import (
+	"../structs"
 	"log"
 	"regexp"
 	"strconv"
 	"strings"
 )
 
-func MakeContainerTokens(fileLines []string) []ContainerToken {
+func MakeContainerTokens(fileLines []string) []structs.ContainerToken {
 	// take in array of file lines, create array of pre-processed container tokens
-	var lineTokens []ContainerToken
+	var lineTokens []structs.ContainerToken
 
 	// create regexes for finding id in code container
 	idRegexFromLIne, _ := regexp.Compile("{\\s*\\d*\\s*\\|")
@@ -44,7 +45,7 @@ func MakeContainerTokens(fileLines []string) []ContainerToken {
 				line := strings.TrimSpace(strings.ReplaceAll(container[idPartPos[1]:], "}", ""))
 
 				// append container token to list
-				lineTokens = append(lineTokens, ContainerToken{Id: id, Value: line})
+				lineTokens = append(lineTokens, structs.ContainerToken{Id: id, Value: line})
 
 				// reset start to -1 to search for missing {
 				start = -1
