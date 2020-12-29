@@ -60,3 +60,40 @@ This will print "999" to the console
 {2|PRINT 999}
 ```
 
+### Execute function
+
+The execute function to used to execute another container by its ID. This is one of the most powerful functions in the language as it allows for the reuse of containers as many times as required. 
+
+The syntax used is ```EXECUTE [ID_OF_CONTAINER_TO_EXECUTE]```
+
+E.g.
+
+```
+This will execute the code in the container with ID 1
+{2|EXECUTE 1}
+```
+
+```
+This will print 
+"10
+10
+10"
+{1|PRINT 10}
+{2|EXECUTE 1}
+{3|EXECUTE 1}
+```
+
+Execute functions can also be used to run other execute functions.
+
+E.g.
+
+```
+This will print 
+"10
+10
+10"
+{1|PRINT 10}
+{2|EXECUTE 1}
+{3|EXECUTE 2}
+```
+
