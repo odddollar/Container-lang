@@ -13,7 +13,7 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 		fmt.Println("variable")
 	} else if token.VarToken.Variable == "" { // run function stuff
 		if token.FunctionToken.Function == "PRINT" { // run print function
-			functions.Print(token.FunctionToken.Arguments)
+			functions.Print(token.FunctionToken.Arguments, token.Id)
 		} else if token.FunctionToken.Function == "EXECUTE" { // run execute stuff
 			// get id of container to execute
 			idToExecute, _ := strconv.Atoi(token.FunctionToken.Arguments)
