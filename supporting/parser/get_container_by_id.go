@@ -15,6 +15,7 @@ func getContainerById(id int, tokenList []structs.Token, currentTokenId int) str
 		}
 	}
 
+	// return fatal error if no container with requested id is found
 	log.Fatal("Runtime error: Container ID "  + strconv.Itoa(currentTokenId) + ": No token with ID " + strconv.Itoa(id) + " found")
 	return structs.Token{}
 }
