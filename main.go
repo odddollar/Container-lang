@@ -19,8 +19,6 @@ func main() {
 	for i := 0; i < len(containerTokenList); i++ {
 		token := tokens.MakeLineTokens(containerTokenList[i])
 		tokenList = append(tokenList, token)
-
-		fmt.Println(token)
 	}
 
 	fmt.Println(tokenList)
