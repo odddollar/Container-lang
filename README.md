@@ -28,6 +28,8 @@ is exactly the same as
 {4|i <- 20}
 ```
 
+## Language reference
+
 ### Comments 
 
 Due to the way the interpreter splits the input file into code containers, any text not within a container will be treated as a comment and thus be ignored by the interpreter.
@@ -37,6 +39,10 @@ E.g.
 ```
 {1|x <- 10}
 {2|PRINT 5}{3| PRINT 10}
-this is a comment
+This is a comment
 {4|mult<- x*22}
+```
+
+```
+{1|x <- 10}{2|PRINT 5}{3| PRINT 10}This is also a valid comment{4|mult<- x*22}
 ```
