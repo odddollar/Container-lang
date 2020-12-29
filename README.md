@@ -1,6 +1,6 @@
 # Container-lang
 
-Container-lang is a lightweight interpreted scripting language based on the idea of "code containers", aiming to make it easy to create reusable code for one/many line scripts.
+Container-lang is a lightweight interpreted scripting language based on the idea of "code containers", aiming to make it easy to create reusable code for one/many line scripts. Container-lang currently only supports numerical data-types, including integers and floats. String support may be added in the future.
 
 ---
 
@@ -46,3 +46,17 @@ This is a comment
 ```
 {1|x <- 10}{2|PRINT 5}{3| PRINT 10}This is also a valid comment{4|mult<- x*22}
 ```
+
+### Print function
+
+The print function is called using the syntax ```PRINT [VALUE_TO_PRINT]``` inside of a container and is used to display text in the console.
+
+E.g.
+
+```
+This will print "10" to the console
+{1|PRINT 10}
+This will print "999" to the console
+{2|PRINT 999}
+```
+
