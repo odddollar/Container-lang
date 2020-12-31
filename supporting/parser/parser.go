@@ -58,6 +58,4 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 			Parse(executedToken, tokenList)
 		}
 	}
-
-	fmt.Println(variables)
 }
