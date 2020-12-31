@@ -3,6 +3,8 @@ package parser
 import (
 	"../structs"
 	"./functions"
+	"fmt"
+	"github.com/Knetic/govaluate"
 	"log"
 	"strconv"
 )
@@ -18,7 +20,18 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 			variables = append(variables, structs.Variable{Name: token.VarToken.Variable})
 		}
 
-		// assign value to variable
+		// create expression from token value
+		expression, err := govaluate.NewEvaluableExpression(token.VarToken.Value)
+		if err != nil {
+			log.Fatal("Runtime Error: Container ID " + strconv.Itoa(token.Id) + ": Unable to create expression from '" + token.VarToken.Value + "'")
+		}
+
+		// evaluate expression
+		result, _ := expression.Evaluate(map[string]interface{}{})
+
+		// assign value to variable in variable array
+		varPos := getVarPosByName(token.VarToken.Variable, variables)
+		variables[varPos].Value = fmt.Sprintf("%v", result)
 
 	} else if token.VarToken.Variable == "" { // run function stuff
 		if token.FunctionToken.Function == "PRINT" { // run print function
@@ -37,4 +50,6 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 			Parse(executedToken, tokenList)
 		}
 	}
+
+	fmt.Println(variables)
 }
