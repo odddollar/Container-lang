@@ -26,8 +26,15 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 			log.Fatal("Runtime Error: Container ID " + strconv.Itoa(token.Id) + ": Unable to create expression from '" + token.VarToken.Value + "'")
 		}
 
+		// create dictionary to use as parameters
+		params := make(map[string]interface{}, 64)
+		for i := 0; i < len(variables); i++ {
+			// add variable as number to dictionary
+			params[variables[i].Name], _ = strconv.ParseFloat(variables[i].Value, 64)
+		}
+
 		// evaluate expression
-		result, _ := expression.Evaluate(map[string]interface{}{})
+		result, _ := expression.Evaluate(params)
 
 		// assign value to variable in variable array
 		varPos := getVarPosByName(token.VarToken.Variable, variables)
@@ -36,6 +43,7 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 	} else if token.VarToken.Variable == "" { // run function stuff
 		if token.FunctionToken.Function == "PRINT" { // run print function
 			functions.Print(token.FunctionToken.Arguments, token.Id)
+
 		} else if token.FunctionToken.Function == "EXECUTE" { // run execute stuff
 			// get id of container to execute
 			idToExecute, err := strconv.Atoi(token.FunctionToken.Arguments)
