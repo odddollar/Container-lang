@@ -15,7 +15,7 @@ Containers are executed from left to right, then top to bottom.
 E.g.
 
 ```
-{ 1 |x <- 10}{2|y <- 11}{ 3|z <- 0}
+{ 1 |x <- 10}{2|y <- 11}{ 3|z <- 56}
 {4 |i<- 20}
 ```
 
@@ -24,9 +24,11 @@ is exactly the same as
 ```
 {1|x <- 10}
 {2|y <- 11}
-{3|z <- 0}
+{3|z <- 56}
 {4|i <- 20}
 ```
+
+---
 
 ## Language reference
 
@@ -47,6 +49,26 @@ This is a comment
 {1|x <- 10}{2|PRINT 5}{3| PRINT 10}This is also a valid comment{4|mult<- x*22}
 ```
 
+### Variables
+
+Much like other languages, variables are "boxes" that store a value for later referencing. These values can be updated at any time. However, unlike other languages that use the ```=``` symbol to assign values, Container-lang uses the arrow symbol, ```<-```.
+
+E.g.
+
+```
+This will assign the value 1 to the variable "x"
+{1|x<-1}
+```
+
+Mathematical operations can also be performed on variables using this same method. E.g.
+
+```
+{1|x <- 1}
+{2|PRINT x}
+{3|x <- x+1}
+{4|PRINT x}
+```
+
 ### Print function
 
 The print function is called using the syntax ```PRINT [VALUE_TO_PRINT]``` inside of a container and is used to display text in the console.
@@ -60,11 +82,18 @@ This will print "999" to the console
 {2|PRINT 999}
 ```
 
+Variables can be printed by placing the variable name as the argument. E.g.
+
+```
+{1|x <- 1}
+{2|PRINT x}
+```
+
 ### Execute function
 
 The execute function to used to execute another container by its ID. This is one of the most powerful functions in the language as it allows for the reuse of containers as many times as required. 
 
-The syntax used is ```EXECUTE [ID_OF_CONTAINER_TO_EXECUTE]```
+The syntax used is ```EXECUTE [ID_OF_CONTAINER_TO_EXECUTE]``` inside of a container.
 
 E.g.
 
