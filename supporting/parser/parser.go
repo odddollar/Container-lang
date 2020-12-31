@@ -3,15 +3,23 @@ package parser
 import (
 	"../structs"
 	"./functions"
-	"fmt"
 	"log"
 	"strconv"
 )
 
+// create array of variables
+var variables []structs.Variable
+
 func Parse(token structs.Token, tokenList []structs.Token) {
 	// decide if function is being called or variable is being operated on
 	if token.FunctionToken.Function == "" { // run variable stuff
-		fmt.Println("variable")
+		// check if variable is in variable list, if not add to list with empty values
+		if !checkVarExists(token.VarToken.Variable, variables) {
+			variables = append(variables, structs.Variable{Name: token.VarToken.Variable})
+		}
+
+		// assign value to variable
+
 	} else if token.VarToken.Variable == "" { // run function stuff
 		if token.FunctionToken.Function == "PRINT" { // run print function
 			functions.Print(token.FunctionToken.Arguments, token.Id)
