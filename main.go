@@ -21,9 +21,6 @@ func main() {
 		tokenList = append(tokenList, token)
 	}
 
-	// group together tokens in blocks
-	tokenList = tokens.GroupBlocks(tokenList)
-
 	fmt.Println(tokenList)
 
 	// run parser
