@@ -51,6 +51,15 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Non-numerical ID supplied")
 			}
 
+			// get positions of tokens in token array
+			executePos := getTokenPos(token.Id, tokenList)
+			toExecutePos := getTokenPos(idToExecute, tokenList)
+
+			// only allow executing of container after first use
+			if executePos < toExecutePos {
+				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Attempting to execute container prior to its first use")
+			}
+
 			// return token after finding it in list
 			executedToken := getContainerById(idToExecute, tokenList, token.Id)
 
