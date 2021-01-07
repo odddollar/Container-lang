@@ -57,7 +57,7 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 
 			// only allow executing of container after first use
 			if executePos < toExecutePos {
-				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Attempting to execute container prior to its first use")
+				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Attempting to execute container prior to its definition")
 			}
 
 			// return token after finding it in list
