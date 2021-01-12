@@ -3,48 +3,30 @@ package functions
 import (
 	"../../structs"
 	"fmt"
+	"github.com/Knetic/govaluate"
 	"log"
 	"strconv"
 )
 
 func Print(text string, currentContainerID int, varList []structs.Variable) {
-	// attempt to convert argument to print to int and not attempting to print variable, if unable log error
-	if _, err := strconv.Atoi(text); err != nil && !checkIfVar(text, varList) {
-		log.Fatal("Runtime error: Container ID " + strconv.Itoa(currentContainerID) + ": Invalid number/variable '" + text + "'")
-	} else {
-		// check if printing variable
-		if checkIfVar(text, varList) {
-			// get variable position in varList then print value
-			varPos := getVarPosByName(text, varList)
-			fmt.Println(varList[varPos].Value)
-		} else {
-			// print plain text
-			fmt.Println(text)
-		}
+	// create govaluate expression from parsed in print parameters
+	expression, err := govaluate.NewEvaluableExpression(text)
+	if err != nil {
+		log.Fatal("Runtime Error: Container ID " + strconv.Itoa(currentContainerID) + ": Unable to create expression from '" + text + "'")
 	}
-}
 
-func checkIfVar(varName string, varList []structs.Variable) bool {
-	// iterate through list of variables
+	// create dictionary of variables and their values
+	params := make(map[string]interface{}, 64)
 	for i := 0; i < len(varList); i++ {
-		// if variable is found return true
-		if varList[i].Name == varName {
-			return true
-		}
+		// add variable as number to dictionary
+		params[varList[i].Name], _ = strconv.ParseFloat(varList[i].Value, 64)
 	}
 
-	// if variable isn't found return false
-	return false
-}
+	// evaluate expression
+	result, _ := expression.Evaluate(params)
 
-func getVarPosByName(varName string, varList []structs.Variable) int {
-	// iterate through list of variables
-	for i := 0; i < len(varList); i++ {
-		// if names match, return the position of variable in array
-		if varList[i].Name == varName {
-			return i
-		}
-	}
+	// print result
+	fmt.Println(result)
 
-	return 0
+	//log.Fatal("Runtime error: Container ID " + strconv.Itoa(currentContainerID) + ": Invalid number/variable '" + text + "'")
 }
