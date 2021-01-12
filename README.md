@@ -82,11 +82,12 @@ This will print "999" to the console
 {2|PRINT 999}
 ```
 
-Variables can be printed by placing the variable name as the argument. E.g.
+Variables can be printed by placing the variable name as the argument, as well as expressions involving variables. E.g.
 
 ```
 {1|x <- 1}
 {2|PRINT x}
+{3|PRINT x+2}
 ```
 
 ### Execute function
