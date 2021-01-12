@@ -36,6 +36,11 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 		// evaluate expression
 		result, _ := expression.Evaluate(params)
 
+		// check that result is returned to prevent entering strings
+		if result == nil {
+			log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Invalid numerical expression/number '" + token.VarToken.Value + "'")
+		}
+
 		// assign value to variable in variable array
 		varPos := getVarPosByName(token.VarToken.Variable, variables)
 		variables[varPos].Value = fmt.Sprintf("%v", result)
