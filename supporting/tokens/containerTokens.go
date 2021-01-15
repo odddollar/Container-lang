@@ -1,7 +1,7 @@
 package tokens
 
 import (
-	"../structs"
+	"Container-lang/supporting/structs"
 	"log"
 	"regexp"
 	"strconv"

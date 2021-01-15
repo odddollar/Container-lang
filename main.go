@@ -1,9 +1,9 @@
 package main
 
 import (
-	"./supporting/parser"
-	"./supporting/structs"
-	"./supporting/tokens"
+	"Container-lang/supporting/parser"
+	"Container-lang/supporting/structs"
+	"Container-lang/supporting/tokens"
 	"fmt"
 )
 

@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"../structs"
+	"Container-lang/supporting/structs"
 	"log"
 	"strconv"
 )

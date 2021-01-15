@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"../structs"
+	"Container-lang/supporting/structs"
 )
 
 func checkVarExists(varName string, varList []structs.Variable) bool {

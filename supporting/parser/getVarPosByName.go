@@ -1,7 +1,7 @@
 package parser
 
 import (
-	"../structs"
+	"Container-lang/supporting/structs"
 )
 
 func getVarPosByName(varName string, varList []structs.Variable) int {

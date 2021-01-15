@@ -1,8 +1,8 @@
 package parser
 
 import (
-	"../structs"
-	"./functions"
+	"Container-lang/supporting/parser/functions"
+	"Container-lang/supporting/structs"
 	"fmt"
 	"github.com/Knetic/govaluate"
 	"log"

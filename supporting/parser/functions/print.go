@@ -1,7 +1,7 @@
 package functions
 
 import (
-	"../../structs"
+	"Container-lang/supporting/structs"
 	"fmt"
 	"github.com/Knetic/govaluate"
 	"log"
