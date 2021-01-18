@@ -41,7 +41,7 @@ func MakeLineTokens(container structs.ContainerToken, containerPos int, containe
 		}
 
 		// check that not trying to create block of more than available tokens
-		if containerPos + argumentsInt + 1> len(containerTokenList) {
+		if containerPos + argumentsInt + 1 > len(containerTokenList) {
 			log.Fatal("Runtime error: Container ID " + strconv.Itoa(container.Id) + ": Attempting to create block with more than available containers")
 		}
 
