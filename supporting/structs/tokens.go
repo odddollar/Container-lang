@@ -11,6 +11,7 @@ type Token struct {
 	Id int
 	VarToken VarToken
 	FunctionToken FunctionToken
+	Block []Token
 }
 
 // variable token to hold id of container, variable to update and new value
