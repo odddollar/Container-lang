@@ -69,6 +69,41 @@ Mathematical operations can also be performed on variables using this same metho
 {4|PRINT x}
 ```
 
+### Blocks
+
+Blocks allow for the grouping together of other containers to be executed later. They're very similar to functions in other programming languages, however they don't accept parsing in arguments. Additionally, blocks can't be placed inside other blocks; attempting to do so will result in an ```Unrecognised request``` error.
+
+Blocks use the syntax ```BLOCK [NUMBER_OF_CONTAINERS_TO_GROUP]```, where the number of containers argument states the next ```x``` number of containers to put in the block.
+
+Similarly to functions, blocks won't be run until they're called. Blocks can be run/called using the ```EXECUTE``` function (continue reading) and the block container's ID, which will run all the containers contained within that block.
+
+Blocks are incredibly useful for creating chunks of code that can be reused many times.
+
+E.g.
+
+```
+This will create a block with an ID of 1 that contains the next 2 containers
+{1|BLOCK 2}
+{2|PRINT 10}
+{3|PRINT 11}
+To run this block, use the EXECUTE function
+{4|EXECUTE 1}
+```
+
+```
+{1|PRINT 1}
+{2|BLOCK 2}
+{3|PRINT 10}
+{4|PRINT 11}
+{5|PRINT 2}
+{6|EXECUTE 2}
+This will print
+"1
+2
+10
+11"
+```
+
 ### Print function
 
 The print function is called using the syntax ```PRINT [VALUE_TO_PRINT]``` inside of a container and is used to display text in the console.
@@ -126,4 +161,3 @@ This will print
 {2|EXECUTE 1}
 {3|EXECUTE 2}
 ```
-
