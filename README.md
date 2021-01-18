@@ -60,7 +60,9 @@ This will assign the value 1 to the variable "x"
 {1|x<-1}
 ```
 
-Mathematical operations can also be performed on variables using this same method. E.g.
+Mathematical operations can also be performed on variables using this same method. 
+
+E.g.
 
 ```
 {1|x <- 1}
@@ -117,7 +119,9 @@ This will print "999" to the console
 {2|PRINT 999}
 ```
 
-Variables can be printed by placing the variable name as the argument, as well as expressions involving variables. E.g.
+Variables can be printed by placing the variable name as the argument, as well as expressions involving variables. 
+
+E.g.
 
 ```
 {1|x <- 1}
