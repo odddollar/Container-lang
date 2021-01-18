@@ -14,7 +14,7 @@ var variables []structs.Variable
 
 func Parse(token structs.Token, tokenList []structs.Token) {
 	// decide if function is being called or variable is being operated on
-	if token.FunctionToken.Function == "" { // run variable stuff
+	if token.FunctionToken.Function == "" && token.VarToken.Variable != "" { // run variable stuff
 		// check if variable is in variable list, if not add to list with empty values
 		if !checkVarExists(token.VarToken.Variable, variables) {
 			variables = append(variables, structs.Variable{Name: token.VarToken.Variable})
@@ -45,7 +45,7 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 		varPos := getVarPosByName(token.VarToken.Variable, variables)
 		variables[varPos].Value = fmt.Sprintf("%v", result)
 
-	} else if token.VarToken.Variable == "" { // run function stuff
+	} else if token.VarToken.Variable == "" && token.FunctionToken.Function != "" { // run function stuff
 		if token.FunctionToken.Function == "PRINT" { // run print function
 			functions.Print(token.FunctionToken.Arguments, token.Id, variables)
 
