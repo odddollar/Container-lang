@@ -108,27 +108,16 @@ This will print
 11"
 ```
 
-### Print function
-
-The print function is called using the syntax ```PRINT [VALUE_TO_PRINT]``` inside of a container and is used to display text in the console.
+Containers within a block can't be executed by containers outside the block.
 
 E.g.
 
 ```
-This will print "10" to the console
-{1|PRINT 10}
-This will print "999" to the console
-{2|PRINT 999}
-```
-
-Variables can be printed by placing the variable name as the argument, as well as expressions involving variables. 
-
-E.g.
-
-```
-{1|x <- 1}
-{2|PRINT x}
-{3|PRINT x+2}
+This will result in a "No container with specified ID" error
+{1|BLOCK 2}
+{2|PRINT 10}
+{3|PRINT 11}
+{4|EXECUTE 2}
 ```
 
 ### Execute function
@@ -166,4 +155,27 @@ This will print
 {1|PRINT 10}
 {2|EXECUTE 1}
 {3|EXECUTE 2}
+```
+
+### Print function
+
+The print function is called using the syntax ```PRINT [VALUE_TO_PRINT]``` inside of a container and is used to display text in the console.
+
+E.g.
+
+```
+This will print "10" to the console
+{1|PRINT 10}
+This will print "999" to the console
+{2|PRINT 999}
+```
+
+Variables can be printed by placing the variable name as the argument, as well as expressions involving variables.
+
+E.g.
+
+```
+{1|x <- 1}
+{2|PRINT x}
+{3|PRINT x+2}
 ```
