@@ -19,6 +19,11 @@ func main() {
 	for i := 0; i < len(containerTokenList); i++ {
 		token := tokens.MakeLineTokens(containerTokenList[i], i, containerTokenList)
 		tokenList = append(tokenList, token)
+
+		// check if most recent token was a block
+		if len(token.Block) != 0 {
+			i += len(token.Block)
+		}
 	}
 
 	fmt.Println(tokenList)
