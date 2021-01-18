@@ -53,6 +53,8 @@ This is a comment
 
 Much like other languages, variables are "boxes" that store a value for later referencing. These values can be updated at any time. However, unlike other languages that use the ```=``` symbol to assign values, Container-lang uses the arrow symbol, ```<-```.
 
+All variables are global (E.g. those in a block can be accessed by those not in a block and vice versa).
+
 E.g.
 
 ```
