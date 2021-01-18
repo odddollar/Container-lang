@@ -40,6 +40,11 @@ func MakeLineTokens(container structs.ContainerToken, containerPos int, containe
 			log.Fatal("Runtime error: Container ID " + strconv.Itoa(container.Id) + ": Unable to convert '" + arguments + "' to integer")
 		}
 
+		// check that not trying to create block of more than available tokens
+		if containerPos + argumentsInt + 1> len(containerTokenList) {
+			log.Fatal("Runtime error: Container ID " + strconv.Itoa(container.Id) + ": Attempting to create block with more than available containers")
+		}
+
 		// create array to append relevant containers to for returning
 		var tokensToReturn []structs.Token
 
