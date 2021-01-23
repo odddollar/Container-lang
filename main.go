@@ -11,6 +11,7 @@ import (
 )
 
 func main() {
+	// create variables to allow for switching between argparse and dev mode
 	var argparser *argparse.Parser
 	var inputFile *string
 	var lines []string
