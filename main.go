@@ -17,35 +17,25 @@ func main() {
 	var inputFile *string
 	var lines []string
 
-	// change for testing in development and release
-	developing := false
+	// create argument parser
+	argparser = argparse.NewParser("Container-lang", "Interpreter for the Container-lang programming language")
+	inputFile = argparser.String("f", "file", &argparse.Options{Required: true})
 
-	// run argparse stuff if not developing
-	if developing == false {
-		// create argument parser
-		argparser = argparse.NewParser("Container-lang", "Interpreter for the Container-lang programming language")
-		inputFile = argparser.String("f", "file", &argparse.Options{Required: true})
-
-		// run argument parser
-		if err := argparser.Parse(os.Args); err != nil {
-			log.Fatal(argparser.Usage(err))
-		}
+	// run argument parser
+	if err := argparser.Parse(os.Args); err != nil {
+		log.Fatal(argparser.Usage(err))
+	}
 		
-		// check that file uses .cnl extension 'cause why not
-		if !strings.Contains(*inputFile, ".cnl") {
-			log.Fatal("File error: Ensure file uses .cnl extension")
-		}
+	// check that file uses .cnl extension 'cause why not
+	if !strings.Contains(*inputFile, ".cnl") {
+		log.Fatal("File error: Ensure file uses .cnl extension")
 	}
 
 	// create empty array of tokens
 	var tokenList []structs.Token
 
-	// read lines of file to array, checking whether argument parsed in or use test file
-	if developing == true {
-		lines = tokens.ReadFileLines("file.cnl")
-	} else {
-		lines = tokens.ReadFileLines(*inputFile)
-	}
+	// read lines of file to array
+	lines = tokens.ReadFileLines(*inputFile)
 
 	// split lines up into container tokens
 	containerTokenList := tokens.MakeContainerTokens(lines)
