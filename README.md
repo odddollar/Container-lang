@@ -75,7 +75,7 @@ E.g.
 
 ### Blocks
 
-Blocks allow for the grouping together of other containers to be executed later. They're very similar to functions in other programming languages, however they don't accept parsing in arguments. Additionally, blocks can't be placed inside other blocks; attempting to do so will result in an ```Unrecognised request``` error.
+Blocks allow for the grouping together of other containers to be executed later. They're very similar to functions in other programming languages, however they don't accept parsing in arguments. Blocks can be placed inside other blocks.
 
 Blocks use the syntax ```BLOCK [NUMBER_OF_CONTAINERS_TO_GROUP]```, where the number of containers argument states the next ```x``` number of containers to put in the block.
 
@@ -83,13 +83,15 @@ Similarly to functions, blocks won't be run until they're called. Blocks can be 
 
 Blocks are incredibly useful for creating chunks of code that can be reused many times.
 
+**TIP**: While not necessary, it makes reading a program so much easier if you indent the containers contained within a block. This whitespace is ignored by the interpreter.
+
 E.g.
 
 ```
 This will create a block with an ID of 1 that contains the next 2 containers
 {1|BLOCK 2}
-{2|PRINT 10}
-{3|PRINT 11}
+	{2|PRINT 10}
+	{3|PRINT 11}
 To run this block, use the EXECUTE function
 {4|EXECUTE 1}
 ```
@@ -97,8 +99,8 @@ To run this block, use the EXECUTE function
 ```
 {1|PRINT 1}
 {2|BLOCK 2}
-{3|PRINT 10}
-{4|PRINT 11}
+	{3|PRINT 10}
+	{4|PRINT 11}
 {5|PRINT 2}
 {6|EXECUTE 2}
 This will print
@@ -115,9 +117,35 @@ E.g.
 ```
 This will result in a "No container with specified ID" error
 {1|BLOCK 2}
-{2|PRINT 10}
-{3|PRINT 11}
+	{2|PRINT 10}
+	{3|PRINT 11}
 {4|EXECUTE 2}
+```
+
+Blocks can contain other blocks. This can lead to some interesting nested containers scenarios.
+
+E.g.
+
+```
+This will print
+"36
+70
+1
+10
+11
+12"
+{1|BLOCK 8}
+	{2|BLOCK 2}
+		{3|PRINT 10}
+		{4|PRINT 11}
+	{5|PRINT 1}
+	{8|BLOCK 1}
+		{9|PRINT 12}
+	{11|EXECUTE 2}
+	{12|EXECUTE 8}
+{6|PRINT 36}
+{7|PRINT 70}
+{10|EXECUTE 1}
 ```
 
 ### Execute function
