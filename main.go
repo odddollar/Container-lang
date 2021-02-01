@@ -47,7 +47,7 @@ func main() {
 
 		// check if most recent token was a block
 		if len(token.Block) != 0 {
-			i += len(token.Block)
+			i += tokens.GetTotalNumberTokensInBlock(token.Block)
 		}
 	}
 

@@ -56,7 +56,8 @@ func MakeLineTokens(container structs.ContainerToken, containerPos int, containe
 
 			// skip lines to prevent additional tokenising
 			if len(newToken.Block) != 0 {
-				i += len(newToken.Block)
+				// increase current position by number of tokens contained within block
+				i += GetTotalNumberTokensInBlock(newToken.Block)
 			}
 		}
 
