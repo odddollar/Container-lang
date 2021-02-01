@@ -31,7 +31,7 @@ func MakeLineTokens(container structs.ContainerToken, containerPos int, containe
 
 		// return new token struct with only relevant function field filled
 		return structs.Token{Id: container.Id, FunctionToken: structs.FunctionToken{Function: function, Arguments: arguments}}
-	} else if len(blockRegex.FindStringIndex(container.Value)) != 0 && containerPos != -1 { // create block token
+	} else if len(blockRegex.FindStringIndex(container.Value)) != 0 { // create block token
 		// split container value based on "BLOCK" position and run error handling for entering non-int as argument
 		pos := blockRegex.FindStringIndex(container.Value)
 		arguments := strings.TrimSpace(container.Value[pos[1]:])
@@ -50,8 +50,14 @@ func MakeLineTokens(container structs.ContainerToken, containerPos int, containe
 
 		// iterate through list of container tokens based on the position of block container and its argument
 		for i := containerPos+1; i < containerPos+argumentsInt+1; i++ {
-			// get create token to append to returning list, parsing in -1 as pos to prevent placing blocks in blocks
-			tokensToReturn = append(tokensToReturn, MakeLineTokens(containerTokenList[i], -1, containerTokenList))
+			// recursively call function to make token, allowing for blocks to be placed within blocks
+			newToken := MakeLineTokens(containerTokenList[i], i, containerTokenList)
+			tokensToReturn = append(tokensToReturn, newToken)
+
+			// skip lines to prevent additional tokenising
+			if len(newToken.Block) != 0 {
+				i += len(newToken.Block)
+			}
 		}
 
 		// return token with list of tokens as block attribute
