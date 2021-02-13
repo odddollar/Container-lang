@@ -26,7 +26,7 @@ func MakeContainerTokens(fileLines []string) []structs.ContainerToken {
 		// iterate through characters in current line
 		for j := 0; j < len(lineSplit); j++ {
 			// run when end of container found
-			if lineSplit[j] == "}" && start != -1{
+			if lineSplit[j] == "}" && start != -1 {
 				// separate current container into string
 				container := strings.Join(lineSplit[start:j+1], "")
 

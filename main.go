@@ -25,7 +25,7 @@ func main() {
 	if err := argparser.Parse(os.Args); err != nil {
 		log.Fatal(argparser.Usage(err))
 	}
-		
+
 	// check that file uses .cnl extension 'cause why not
 	if !strings.Contains(*inputFile, ".cnl") {
 		log.Fatal("File error: Ensure file uses .cnl extension")

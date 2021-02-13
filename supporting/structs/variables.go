@@ -1,6 +1,6 @@
 package structs
 
 type Variable struct {
-	Name string
+	Name  string
 	Value string
 }
