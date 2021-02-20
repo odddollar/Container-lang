@@ -81,6 +81,8 @@ Similarly to functions, blocks won't be run until they're called. Blocks can be 
 
 Blocks are incredibly useful for creating chunks of code that can be reused many times.
 
+**NOTE**: Blocks must be defined before they can be called.
+
 **TIP**: While not necessary, it makes reading a program so much easier if you indent the containers contained within a block. This whitespace is ignored by the interpreter.
 
 E.g.
@@ -150,7 +152,7 @@ This will print
 
 The repeat function is similar to a for loop in other languages, it repeats the given code a set number of times. 
 
-It uses the syntax ```REPEAT [CONTAINER_ID_TO_REPEAT], [NUMBER_OF_TIMES_TO_REPEAT]```
+It uses the syntax ```REPEAT [CONTAINER_ID_TO_REPEAT], [NUMBER_OF_TIMES_TO_REPEAT]```.
 
 E.g. 
 
@@ -180,6 +182,25 @@ This will print
 	{4|REPEAT 2, 3}
 {5|REPEAT 1, 2}
 ```
+
+### If
+
+If statements exist as they would in any other language, with a condition, code that runs if the condition is true and optional code that runs if the condition is false.
+
+If statements use the syntax ```IF [CONDITION], [CONTAINER_ID_TO_RUN_IF_TRUE], [CONTAINER_ID_TO_RUN_IF_FALSE (Optional)]```.
+
+E.g.
+
+```
+{1|BLOCK 1}
+	{2|PRINT 10}
+{3|BLOCK 1}
+	{4|PRINT 20}
+{5|x <- 1}
+{6|IF x>11, 1, 3}
+```
+
+The print functions are wrapped in blocks to prevent them from running by default, only executing when called by the if statement.
 
 ### Execute function
 
