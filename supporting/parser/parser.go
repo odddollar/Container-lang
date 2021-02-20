@@ -41,6 +41,11 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Non-numerical container ID supplied in argument 1")
 			}
 
+			// prevent creation of infinite loop with repeats calling themselves
+			if containerToRepeat == token.Id {
+				log.Fatal("Fatal error: Container ID " + strconv.Itoa(token.Id) + ": Repeat calling itself, infinite loop prevented")
+			}
+
 			// create expression from second argument and evaluate to allow for maths and variables
 			repetitions := int(createExpression(args[1], token).(float64))
 
