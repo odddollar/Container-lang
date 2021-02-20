@@ -31,7 +31,7 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 		} else if token.FunctionToken.Function == "REPEAT" {
 			// split arguments
 			args := strings.Split(token.FunctionToken.Arguments, ",")
-			if len(args) > 2 {
+			if len(args) != 2 {
 				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Required 2 arguments, " + strconv.Itoa(len(args)) + " provided")
 			}
 
@@ -44,7 +44,32 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 			// create expression from second argument and evaluate to allow for maths and variables
 			repetitions := int(createExpression(args[1], token).(float64))
 
-			fmt.Println(containerToRepeat, repetitions)
+			// get positions of tokens in token array
+			executePos := getTokenPos(token.Id, tokenList)
+			toExecutePos := getTokenPos(containerToRepeat, tokenList)
+
+			// only allow executing of container after first use
+			if executePos < toExecutePos {
+				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Attempting to execute container prior to its definition")
+			}
+
+			// return token after finding it in list
+			executedToken := getContainerById(containerToRepeat, tokenList, token.Id)
+
+			// repeat number of repetitions
+			for j := 0; j < repetitions; j++ {
+				// check if executing block or normal container
+				if len(executedToken.Block) == 0 {
+					// recursively call parser function with new token
+					Parse(executedToken, tokenList)
+				} else {
+					// iterate through tokens in block
+					for i := 0; i < len(executedToken.Block); i++ {
+						// recursively call parser function with current token and list of tokens in block
+						Parse(executedToken.Block[i], executedToken.Block)
+					}
+				}
+			}
 
 		} else if token.FunctionToken.Function == "EXECUTE" { // run execute stuff
 			// get id of container to execute
