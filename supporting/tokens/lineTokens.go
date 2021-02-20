@@ -11,7 +11,7 @@ import (
 func MakeLineTokens(container structs.ContainerToken, containerPos int, containerTokenList []structs.ContainerToken) structs.Token {
 	// compile regexes for checking if variable operation, function or creating block
 	varRegex, _ := regexp.Compile("(<-)")
-	funcRegex, _ := regexp.Compile("(PRINT\\s|EXECUTE\\s|REPEAT\\s)")
+	funcRegex, _ := regexp.Compile("(PRINT\\s|EXECUTE\\s|REPEAT\\s|IF\\s)")
 	blockRegex, _ := regexp.Compile("BLOCK\\s")
 
 	// check if variable or function token should be created

@@ -27,7 +27,7 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 		if token.FunctionToken.Function == "PRINT" { // run print function
 			print_(token.FunctionToken.Arguments, token)
 
-		} else if token.FunctionToken.Function == "REPEAT" {
+		} else if token.FunctionToken.Function == "REPEAT" { // run repeat function
 			// split arguments
 			args := strings.Split(token.FunctionToken.Arguments, ",")
 			if len(args) != 2 {
@@ -35,7 +35,7 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 			}
 
 			// convert args to integers
-			containerToRepeat, err := strconv.Atoi(args[0])
+			containerToRepeat, err := strconv.Atoi(strings.TrimSpace(args[0]))
 			if err != nil {
 				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Non-numerical container ID supplied in argument 1")
 			}
@@ -74,10 +74,52 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 					}
 				}
 			}
+		} else if token.FunctionToken.Function == "IF" {
+			// split arguments
+			args := strings.Split(token.FunctionToken.Arguments, ",")
+			if len(args) < 2 || len(args) > 3 {
+				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Required 2 or 3 arguments, " + strconv.Itoa(len(args)) + " provided")
+			}
+
+			// evaluate condition
+			condition := createExpression(args[0], token)
+
+			// convert args to integers
+			executeTrue, err := strconv.Atoi(strings.TrimSpace(args[1]))
+			var executeFalse int
+			if err != nil {
+				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Non-numerical container ID supplied in argument 2")
+			}
+			if len(args) == 3 {
+				executeFalse, err = strconv.Atoi(strings.TrimSpace(args[2]))
+				if err != nil {
+					log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Non-numerical container ID supplied in argument 3")
+				}
+			}
+
+			// get positions of tokens in token array
+			executePos := getTokenPos(token.Id, tokenList)
+			toExecutePosTrue := getTokenPos(executeTrue, tokenList)
+			var toExecutePosFalse int
+			if len(args) == 3 {
+				toExecutePosFalse = getTokenPos(executeFalse, tokenList)
+			}
+
+			// only allow executing of container after first use
+			if executePos < toExecutePosTrue || (executePos < toExecutePosFalse && len(args) == 3) {
+				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Attempting to execute container prior to its definition")
+			}
+
+			// check condition
+			if condition == true { // execute parser for true token id
+				execute(executeTrue, token, tokenList)
+			} else if condition == false && len(args) == 3 { // execute parser for false token id
+				execute(executeFalse, token, tokenList)
+			}
 
 		} else if token.FunctionToken.Function == "EXECUTE" { // run execute stuff
 			// get id of container to execute
-			idToExecute, err := strconv.Atoi(token.FunctionToken.Arguments)
+			idToExecute, err := strconv.Atoi(strings.TrimSpace(token.FunctionToken.Arguments))
 			if err != nil {
 				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Non-numerical ID supplied")
 			}
@@ -91,20 +133,8 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Attempting to execute container prior to its definition")
 			}
 
-			// return token after finding it in list
-			executedToken := getContainerById(idToExecute, tokenList, token.Id)
-
-			// check if executing block or normal container
-			if len(executedToken.Block) == 0 {
-				// recursively call parser function with new token
-				Parse(executedToken, tokenList)
-			} else {
-				// iterate through tokens in block
-				for i := 0; i < len(executedToken.Block); i++ {
-					// recursively call parser function with current token and list of tokens in block
-					Parse(executedToken.Block[i], executedToken.Block)
-				}
-			}
+			// run execute function
+			execute(idToExecute, token, tokenList)
 		}
 	}
 }
