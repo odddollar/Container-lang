@@ -4,7 +4,6 @@ import (
 	"Container-lang/supporting/parser/functions"
 	"Container-lang/supporting/structs"
 	"fmt"
-	"github.com/Knetic/govaluate"
 	"log"
 	"strconv"
 	"strings"
@@ -21,30 +20,9 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 			variables = append(variables, structs.Variable{Name: token.VarToken.Variable})
 		}
 
-		// create expression from token value
-		expression, err := govaluate.NewEvaluableExpression(token.VarToken.Value)
-		if err != nil {
-			log.Fatal("Runtime Error: Container ID " + strconv.Itoa(token.Id) + ": Unable to create expression from '" + token.VarToken.Value + "'")
-		}
-
-		// create dictionary to use as parameters
-		params := make(map[string]interface{}, 64)
-		for i := 0; i < len(variables); i++ {
-			// add variable as number to dictionary
-			params[variables[i].Name], _ = strconv.ParseFloat(variables[i].Value, 64)
-		}
-
-		// evaluate expression
-		result, _ := expression.Evaluate(params)
-
-		// check that result is returned to prevent entering strings
-		if result == nil {
-			log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Invalid numerical expression/number '" + token.VarToken.Value + "'")
-		}
-
 		// assign value to variable in variable array
 		varPos := getVarPosByName(token.VarToken.Variable, variables)
-		variables[varPos].Value = fmt.Sprintf("%v", result)
+		variables[varPos].Value = fmt.Sprintf("%v", createExpression(token.VarToken.Value, token))
 
 	} else if token.VarToken.Variable == "" && token.FunctionToken.Function != "" { // run function stuff
 		if token.FunctionToken.Function == "PRINT" { // run print function
@@ -56,6 +34,17 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 			if len(args) > 2 {
 				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Required 2 arguments, " + strconv.Itoa(len(args)) + " provided")
 			}
+
+			// convert args to integers
+			containerToRepeat, err := strconv.Atoi(args[0])
+			if err != nil {
+				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Non-numerical container ID supplied in argument 1")
+			}
+
+			// create expression from second argument and evaluate to allow for maths and variables
+			repetitions := int(createExpression(args[1], token).(float64))
+
+			fmt.Println(containerToRepeat, repetitions)
 
 		} else if token.FunctionToken.Function == "EXECUTE" { // run execute stuff
 			// get id of container to execute
