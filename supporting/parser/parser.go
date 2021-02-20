@@ -97,6 +97,11 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 				}
 			}
 
+			// prevent creation of infinite loop with ifs calling themselves
+			if executeTrue == token.Id || (executeFalse == token.Id && len(args) == 3) {
+				log.Fatal("Fatal error: Container ID " + strconv.Itoa(token.Id) + ": If calling itself, infinite loop prevented")
+			}
+
 			// get positions of tokens in token array
 			executePos := getTokenPos(token.Id, tokenList)
 			toExecutePosTrue := getTokenPos(executeTrue, tokenList)
