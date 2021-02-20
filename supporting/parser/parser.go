@@ -74,7 +74,7 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 					}
 				}
 			}
-		} else if token.FunctionToken.Function == "IF" {
+		} else if token.FunctionToken.Function == "IF" { // run if statement function
 			// split arguments
 			args := strings.Split(token.FunctionToken.Arguments, ",")
 			if len(args) < 2 || len(args) > 3 {
