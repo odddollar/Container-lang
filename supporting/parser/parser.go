@@ -25,7 +25,7 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 
 	} else if token.VarToken.Variable == "" && token.FunctionToken.Function != "" { // run function stuff
 		if token.FunctionToken.Function == "PRINT" { // run print function
-			print_(token.FunctionToken.Arguments, token.Id)
+			print_(token.FunctionToken.Arguments, token)
 
 		} else if token.FunctionToken.Function == "REPEAT" {
 			// split arguments
