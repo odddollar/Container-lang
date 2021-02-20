@@ -7,6 +7,7 @@ import (
 	"github.com/Knetic/govaluate"
 	"log"
 	"strconv"
+	"strings"
 )
 
 // create array of variables
@@ -48,6 +49,13 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 	} else if token.VarToken.Variable == "" && token.FunctionToken.Function != "" { // run function stuff
 		if token.FunctionToken.Function == "PRINT" { // run print function
 			functions.Print(token.FunctionToken.Arguments, token.Id, variables)
+
+		} else if token.FunctionToken.Function == "REPEAT" {
+			// split arguments
+			args := strings.Split(token.FunctionToken.Arguments, ",")
+			if len(args) > 2 {
+				log.Fatal("Runtime error: Container ID " + strconv.Itoa(token.Id) + ": Required 2 arguments, " + strconv.Itoa(len(args)) + " provided")
+			}
 
 		} else if token.FunctionToken.Function == "EXECUTE" { // run execute stuff
 			// get id of container to execute
