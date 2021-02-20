@@ -2,9 +2,7 @@
 
 Container-lang is a lightweight interpreted scripting language based on the idea of "code containers", aiming to make it easy to create reusable code for one/many line scripts. Container-lang currently only supports numerical data-types, including integers and floats. String support may be added in the future.
 
----
-
-### Code containers
+## Code containers
 
 Code containers are the same as a line in other languages, however have a numerical ID that allows them to be referenced later, meaning the same container can be used many times. Additionally, containers can be placed sequentially on one line, allowing for whole programs to be written on one line.
 
@@ -146,6 +144,41 @@ This will print
 {6|PRINT 36}
 {7|PRINT 70}
 {10|EXECUTE 1}
+```
+
+### Repeat
+
+The repeat function is similar to a for loop in other languages, it repeats the given code a set number of times. 
+
+It uses the syntax ```REPEAT [CONTAINER_ID_TO_REPEAT], [NUMBER_OF_TIMES_TO_REPEAT]```
+
+E.g. 
+
+```
+This will print 
+"10
+10
+10"
+{1|BLOCK 1}
+	{2|PRINT 10}
+{3|REPEAT 1, 3}
+```
+
+In the above example, the print function is encased in a block to prevent it running by default. If the print wasn't in a block, ```10``` would be printed 4 times.
+
+```
+This will print
+"1
+1
+1
+1
+1
+1"
+{1|BLOCK 3}
+	{2|BLOCK 1}
+		{3|PRINT 1}
+	{4|REPEAT 2, 3}
+{5|REPEAT 1, 2}
 ```
 
 ### Execute function
