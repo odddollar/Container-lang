@@ -1,7 +1,6 @@
 package parser
 
 import (
-	"Container-lang/supporting/parser/functions"
 	"Container-lang/supporting/structs"
 	"fmt"
 	"log"
@@ -26,7 +25,7 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 
 	} else if token.VarToken.Variable == "" && token.FunctionToken.Function != "" { // run function stuff
 		if token.FunctionToken.Function == "PRINT" { // run print function
-			functions.Print(token.FunctionToken.Arguments, token.Id, variables)
+			print_(token.FunctionToken.Arguments, token.Id)
 
 		} else if token.FunctionToken.Function == "REPEAT" {
 			// split arguments
