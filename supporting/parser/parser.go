@@ -63,8 +63,13 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 			// return token after finding it in list
 			executedToken := getContainerById(containerToRepeat, tokenList, token.Id)
 
-			// append new variable
-			variables = append(variables, structs.Variable{Name: "i" + strconv.Itoa(token.Id), Value: "0"})
+			// check if variable is in variable list, if not add to list with empty values
+			if !checkVarExists("i"+strconv.Itoa(token.Id), variables) {
+				variables = append(variables, structs.Variable{Name: "i" + strconv.Itoa(token.Id), Value: "0"})
+			} else { // if it does exist, reset value
+				iterVarPos := getVarPosByName("i"+strconv.Itoa(token.Id), variables)
+				variables[iterVarPos].Value = "0"
+			}
 
 			// repeat number of repetitions
 			for j := 0; j < repetitions; j++ {
