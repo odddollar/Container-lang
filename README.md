@@ -1,6 +1,13 @@
 # Container-lang
 
-Container-lang is a lightweight interpreted scripting language based on the idea of "code containers", aiming to make it easy to create reusable code for one/many line scripts. Container-lang currently only supports numerical data-types, including integers and floats. String support may be added in the future.
+Container-lang is a lightweight interpreted scripting language based on the idea of "code containers", aiming to make it easy to create reusable code for one/many line scripts. Container-lang currently only supports numerical data-types, including integers and floats. String support is unlikely to be added in the future.
+
+## Usage
+Prebuilt interpreter files are available on the GitHub page. 
+
+To run an Container-lang file (```.cnl``` extension), open a command prompt and type ```container-lang -f [PATH_TO_FILE]```.
+
+To build from source, clone the Git repo using ```git clone https://github.com/odddollar/Container-lang.git```, then run ```go build Container-lang```.
 
 ## Code containers
 
