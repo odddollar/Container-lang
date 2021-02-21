@@ -5,9 +5,13 @@ import (
 	"fmt"
 )
 
-func print_(text string, token structs.Token) {
+func print_(text string, token structs.Token, newLine bool) {
 	result := createExpression(text, token)
 
 	// print result
-	fmt.Println(result)
+	if newLine == true {
+		fmt.Println(result)
+	} else {
+		fmt.Print(result)
+	}
 }
