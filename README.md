@@ -190,7 +190,7 @@ This will print
 {5|REPEAT 1, 2}
 ```
 
-Below is an example of the implicitly creation iteration variable.
+Below is an example of the implicitly created iteration variable.
 
 ```
 {1|BLOCK 1}
