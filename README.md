@@ -159,7 +159,7 @@ The repeat function is similar to a for loop in other languages, it repeats the 
 
 It uses the syntax ```REPEAT [CONTAINER_ID_TO_REPEAT], [NUMBER_OF_TIMES_TO_REPEAT]```.
 
-The repeat function implicitly creates a variable that keeps track of its current iteration status, named ```i[CONTAINER_ID_OF_REPEAT]```, E.g. A repeat container with and ID of ```3``` will implicitly create an iterator variable called ```i3```. It is not recommended to write to these variables, it can cause some weird situations, however it is possible.
+The repeat function implicitly creates a variable that keeps track of its current iteration status, named ```i[CONTAINER_ID_OF_REPEAT]```, E.g. A repeat container with an ID of ```3``` will implicitly create an iterator variable called ```i3```. It is not recommended to write to these variables, it can cause some weird situations, however it is possible.
 
 E.g. 
 
