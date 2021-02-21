@@ -60,6 +60,9 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 			// return token after finding it in list
 			executedToken := getContainerById(containerToRepeat, tokenList, token.Id)
 
+			// append new variable
+			variables = append(variables, structs.Variable{Name: "i" + strconv.Itoa(token.Id), Value: "0"})
+
 			// repeat number of repetitions
 			for j := 0; j < repetitions; j++ {
 				// check if executing block or normal container
@@ -73,7 +76,16 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 						Parse(executedToken.Block[i], executedToken.Block)
 					}
 				}
+
+				// get iterate variable position and convert value to integer
+				iterVarPos := getVarPosByName("i"+strconv.Itoa(token.Id), variables)
+				val, _ := strconv.Atoi(variables[iterVarPos].Value)
+
+				// increase iter variable value
+				val++
+				variables[iterVarPos].Value = strconv.Itoa(val)
 			}
+
 		} else if token.FunctionToken.Function == "IF" { // run if statement function
 			// split arguments
 			args := strings.Split(token.FunctionToken.Arguments, ",")
