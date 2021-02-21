@@ -1,6 +1,6 @@
 # Container-lang
 
-Container-lang is a lightweight interpreted scripting language based on the idea of "code containers", aiming to make it easy to create reusable code for one/many line scripts. Container-lang currently only supports numerical data-types, including integers and floats. String support is unlikely to be added in the future.
+Container-lang is a lightweight, interpreted, esoteric scripting language based on the idea of "code containers", aiming to make it easy to create reusable code for one/many line scripts. Container-lang currently only supports numerical data-types, including integers and floats. String support is unlikely to be added in the future.
 
 ## Usage
 Prebuilt interpreter files are available on the GitHub page. 
