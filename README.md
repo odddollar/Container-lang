@@ -36,13 +36,13 @@ E.g.
 
 ```
 {1|x <- 10}
-{2|PRINT 5}{3| PRINT 10}
+{2|PRINTLN 5}{3| PRINTLN 10}
 This is a comment
 {4|mult<- x*22}
 ```
 
 ```
-{1|x <- 10}{2|PRINT 5}{3| PRINT 10}This is also a valid comment{4|mult<- x*22}
+{1|x <- 10}{2|PRINTLN 5}{3| PRINTLN 10}This is also a valid comment{4|mult<- x*22}
 ```
 
 ### Variables
@@ -64,9 +64,9 @@ E.g.
 
 ```
 {1|x <- 1}
-{2|PRINT x}
+{2|PRINTLN x}
 {3|x <- x+1}
-{4|PRINT x}
+{4|PRINTLN x}
 ```
 
 ### Blocks
@@ -88,18 +88,18 @@ E.g.
 ```
 This will create a block with an ID of 1 that contains the next 2 containers
 {1|BLOCK 2}
-	{2|PRINT 10}
-	{3|PRINT 11}
+	{2|PRINTLN 10}
+	{3|PRINTLN 11}
 To run this block, use the EXECUTE function
 {4|EXECUTE 1}
 ```
 
 ```
-{1|PRINT 1}
+{1|PRINTLN 1}
 {2|BLOCK 2}
-	{3|PRINT 10}
-	{4|PRINT 11}
-{5|PRINT 2}
+	{3|PRINTLN 10}
+	{4|PRINTLN 11}
+{5|PRINTLN 2}
 {6|EXECUTE 2}
 This will print
 "1
@@ -115,8 +115,8 @@ E.g.
 ```
 This will result in a "No container with specified ID" error
 {1|BLOCK 2}
-	{2|PRINT 10}
-	{3|PRINT 11}
+	{2|PRINTLN 10}
+	{3|PRINTLN 11}
 {4|EXECUTE 2}
 ```
 
@@ -134,15 +134,15 @@ This will print
 12"
 {1|BLOCK 8}
 	{2|BLOCK 2}
-		{3|PRINT 10}
-		{4|PRINT 11}
-	{5|PRINT 1}
+		{3|PRINTLN 10}
+		{4|PRINTLN 11}
+	{5|PRINTLN 1}
 	{8|BLOCK 1}
-		{9|PRINT 12}
+		{9|PRINTLN 12}
 	{11|EXECUTE 2}
 	{12|EXECUTE 8}
-{6|PRINT 36}
-{7|PRINT 70}
+{6|PRINTLN 36}
+{7|PRINTLN 70}
 {10|EXECUTE 1}
 ```
 
@@ -162,7 +162,7 @@ This will print
 10
 10"
 {1|BLOCK 1}
-	{2|PRINT 10}
+	{2|PRINTLN 10}
 {3|REPEAT 1, 3}
 ```
 
@@ -178,7 +178,7 @@ This will print
 1"
 {1|BLOCK 3}
 	{2|BLOCK 1}
-		{3|PRINT 1}
+		{3|PRINTLN 1}
 	{4|REPEAT 2, 3}
 {5|REPEAT 1, 2}
 ```
@@ -187,7 +187,7 @@ Below is an example of the implicitly creation iteration variable.
 
 ```
 {1|BLOCK 1}
-	{2|PRINT i3}
+	{2|PRINTLN i3}
 {3|REPEAT 1, 5}
 ```
 
@@ -201,9 +201,9 @@ E.g.
 
 ```
 {1|BLOCK 1}
-	{2|PRINT 10}
+	{2|PRINTLN 10}
 {3|BLOCK 1}
-	{4|PRINT 20}
+	{4|PRINTLN 20}
 {5|x <- 1}
 {6|IF x>11, 1, 3}
 ```
@@ -228,7 +228,7 @@ This will print
 "10
 10
 10"
-{1|PRINT 10}
+{1|PRINTLN 10}
 {2|EXECUTE 1}
 {3|EXECUTE 1}
 ```
@@ -242,7 +242,7 @@ This will print
 "10
 10
 10"
-{1|PRINT 10}
+{1|PRINTLN 10}
 {2|EXECUTE 1}
 {3|EXECUTE 2}
 ```
@@ -284,4 +284,3 @@ Basic 2 bit binary counter
 	{5|REPEAT 2, 2}
 {6|REPEAT 1, 2}
 ```
-
