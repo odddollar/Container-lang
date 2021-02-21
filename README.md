@@ -26,8 +26,6 @@ is exactly the same as
 {4|i <- 20}
 ```
 
----
-
 ## Language reference
 
 ### Comments 
@@ -154,6 +152,8 @@ The repeat function is similar to a for loop in other languages, it repeats the 
 
 It uses the syntax ```REPEAT [CONTAINER_ID_TO_REPEAT], [NUMBER_OF_TIMES_TO_REPEAT]```.
 
+The repeat function implicitly creates a variable that keeps track of its current iteration status, named ```i[CONTAINER_ID_OF_REPEAT]```, E.g. A repeat container with and ID of ```3``` will implicitly create an iterator variable called ```i3```. It is not recommended to write to these variables, it can cause some weird situations, however it is possible.
+
 E.g. 
 
 ```
@@ -181,6 +181,14 @@ This will print
 		{3|PRINT 1}
 	{4|REPEAT 2, 3}
 {5|REPEAT 1, 2}
+```
+
+Below is an example of the implicitly creation iteration variable.
+
+```
+{1|BLOCK 1}
+	{2|PRINT i3}
+{3|REPEAT 1, 5}
 ```
 
 ### If
@@ -241,15 +249,17 @@ This will print
 
 ### Print function
 
-The print function is called using the syntax ```PRINT [VALUE_TO_PRINT]``` inside of a container and is used to display text in the console.
+The print function is called using the syntax ```PRINT [VALUE_TO_PRINT]``` or ```PRINTLN [VALUE_TO_PRINT]```inside of a container and is used to display text in the console.
+
+```PRINT``` doesn't add a newline character, ```PRINTLN``` does.
 
 E.g.
 
 ```
 This will print "10" to the console
-{1|PRINT 10}
+{1|PRINTLN 10}
 This will print "999" to the console
-{2|PRINT 999}
+{2|PRINTLN 999}
 ```
 
 Variables can be printed by placing the variable name as the argument, as well as expressions involving variables.
@@ -258,6 +268,20 @@ E.g.
 
 ```
 {1|x <- 1}
-{2|PRINT x}
-{3|PRINT x+2}
+{2|PRINTLN x}
+{3|PRINTLN x+2}
 ```
+
+## Examples
+
+Basic 2 bit binary counter
+
+```
+{1|BLOCK 4}
+	{2|BLOCK 2}
+		{3|PRINT i6}
+		{4|PRINTLN i5}
+	{5|REPEAT 2, 2}
+{6|REPEAT 1, 2}
+```
+
