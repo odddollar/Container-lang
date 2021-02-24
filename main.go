@@ -9,9 +9,13 @@ import (
 	"log"
 	"os"
 	"strings"
+	"time"
 )
 
 func main() {
+	// get start time
+	start := time.Now()
+
 	// create variables to allow for switching between argparse and dev mode
 	var argparser *argparse.Parser
 	var inputFile *string
@@ -51,6 +55,7 @@ func main() {
 		}
 	}
 
+	// print token list
 	fmt.Println(tokenList)
 
 	// run parser
@@ -58,4 +63,7 @@ func main() {
 	for i := 0; i < len(tokenList); i++ {
 		parser.Parse(tokenList[i], tokenList)
 	}
+
+	// print completion time
+	fmt.Printf("Finished in: %v", time.Since(start))
 }
