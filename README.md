@@ -285,7 +285,7 @@ E.g.
 
 ## Examples
 
-Basic 2 bit binary counter
+Basic 4 bit binary counter
 
 ```
 {10|BLOCK 10}
