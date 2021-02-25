@@ -262,6 +262,8 @@ The print function is called using the syntax ```PRINT [VALUE_TO_PRINT]``` or ``
 
 ```PRINT``` doesn't add a newline character, ```PRINTLN``` does.
 
+To print a blank character (E.g. a space), provide ```BLANK``` as an argument for ```PRINT``` or ```PRINTLN```.
+
 E.g.
 
 ```
@@ -286,10 +288,16 @@ E.g.
 Basic 2 bit binary counter
 
 ```
-{1|BLOCK 4}
-	{2|BLOCK 2}
-		{3|PRINT i6}
-		{4|PRINTLN i5}
-	{5|REPEAT 2, 2}
-{6|REPEAT 1, 2}
+{10|BLOCK 10}
+	{7|BLOCK 8}
+		{1|BLOCK 6}
+			{2|BLOCK 4}
+				{12|PRINT i11}
+				{9|PRINT i8}
+				{3|PRINT i6}
+				{4|PRINTLN i5}
+			{5|REPEAT 2, 2}
+		{6|REPEAT 1, 2}
+	{8|REPEAT 7, 2}
+{11|REPEAT 10, 2}
 ```
