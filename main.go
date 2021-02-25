@@ -56,7 +56,7 @@ func main() {
 	}
 
 	// print token list
-	fmt.Println(tokenList)
+	//fmt.Println(tokenList)
 
 	// run parser
 	// iterate through array of tokens
