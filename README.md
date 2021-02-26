@@ -301,3 +301,15 @@ Basic 4 bit binary counter
 	{8|REPEAT 7, 2}
 {11|REPEAT 10, 2}
 ```
+
+Find factors of 2000000
+
+```
+{6|num <- 2000000}
+{1|BLOCK 3}
+    {4|BLOCK 1}
+        {5|PRINTLN i2}
+    {3|IF num%i2==0, 4}
+{2|REPEAT 1, num+1}
+```
+
