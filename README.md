@@ -7,6 +7,8 @@ Prebuilt interpreter files are available on the GitHub page.
 
 To run an Container-lang file (```.cnl``` extension), open a command prompt and type ```container-lang -f [PATH_TO_FILE]```.
 
+Specify the ```-d``` flag to print debug information, including the token stream generated from the input file and the program completion time.
+
 To build from source, clone the Git repo using ```git clone https://github.com/odddollar/Container-lang.git```, then run ```go build Container-lang```.
 
 ## Code containers
