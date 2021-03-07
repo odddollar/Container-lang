@@ -15,12 +15,12 @@ func Parse(token structs.Token, tokenList *[]structs.Token) {
 	// decide if function is being called or variable is being operated on
 	if token.FunctionToken.Function == "" && token.VarToken.Variable != "" { // run variable stuff
 		// check if variable is in variable list, if not add to list with empty values
-		if !checkVarExists(token.VarToken.Variable, variables) {
+		if !checkVarExists(token.VarToken.Variable, &variables) {
 			variables = append(variables, structs.Variable{Name: token.VarToken.Variable})
 		}
 
 		// assign value to variable in variable array
-		varPos := getVarPosByName(token.VarToken.Variable, variables)
+		varPos := getVarPosByName(token.VarToken.Variable, &variables)
 		variables[varPos].Value = fmt.Sprintf("%v", createExpression(token.VarToken.Value, token))
 
 	} else if token.VarToken.Variable == "" && token.FunctionToken.Function != "" { // run function stuff
@@ -72,10 +72,10 @@ func Parse(token structs.Token, tokenList *[]structs.Token) {
 			executedToken := getContainerById(containerToRepeat, tokenList, token.Id)
 
 			// check if variable is in variable list, if not add to list with empty values
-			if !checkVarExists("i"+strconv.Itoa(token.Id), variables) {
+			if !checkVarExists("i"+strconv.Itoa(token.Id), &variables) {
 				variables = append(variables, structs.Variable{Name: "i" + strconv.Itoa(token.Id), Value: "0"})
 			} else { // if it does exist, reset value
-				iterVarPos := getVarPosByName("i"+strconv.Itoa(token.Id), variables)
+				iterVarPos := getVarPosByName("i"+strconv.Itoa(token.Id), &variables)
 				variables[iterVarPos].Value = "0"
 			}
 
@@ -94,7 +94,7 @@ func Parse(token structs.Token, tokenList *[]structs.Token) {
 				}
 
 				// get iterate variable position and convert value to integer
-				iterVarPos := getVarPosByName("i"+strconv.Itoa(token.Id), variables)
+				iterVarPos := getVarPosByName("i"+strconv.Itoa(token.Id), &variables)
 				val, _ := strconv.Atoi(variables[iterVarPos].Value)
 
 				// increase iter variable value
