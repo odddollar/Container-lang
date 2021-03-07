@@ -61,7 +61,7 @@ func main() {
 	// run parser
 	// iterate through array of tokens
 	for i := 0; i < len(tokenList); i++ {
-		parser.Parse(tokenList[i], tokenList)
+		parser.Parse(tokenList[i], &tokenList)
 	}
 
 	// print completion time

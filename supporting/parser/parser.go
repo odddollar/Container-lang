@@ -11,7 +11,7 @@ import (
 // create array of variables
 var variables []structs.Variable
 
-func Parse(token structs.Token, tokenList []structs.Token) {
+func Parse(token structs.Token, tokenList *[]structs.Token) {
 	// decide if function is being called or variable is being operated on
 	if token.FunctionToken.Function == "" && token.VarToken.Variable != "" { // run variable stuff
 		// check if variable is in variable list, if not add to list with empty values
@@ -89,7 +89,7 @@ func Parse(token structs.Token, tokenList []structs.Token) {
 					// iterate through tokens in block
 					for i := 0; i < len(executedToken.Block); i++ {
 						// recursively call parser function with current token and list of tokens in block
-						Parse(executedToken.Block[i], executedToken.Block)
+						Parse(executedToken.Block[i], &executedToken.Block)
 					}
 				}
 

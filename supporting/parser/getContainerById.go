@@ -6,12 +6,15 @@ import (
 	"strconv"
 )
 
-func getContainerById(id int, tokenList []structs.Token, currentTokenId int) structs.Token {
+func getContainerById(id int, tokenList *[]structs.Token, currentTokenId int) structs.Token {
+	// deference to slice
+	tokens := *tokenList
+
 	// iterate through tokens in list
-	for i := 0; i < len(tokenList); i++ {
+	for i := 0; i < len(*tokenList); i++ {
 		// check if current token matches requested id
-		if tokenList[i].Id == id {
-			return tokenList[i]
+		if tokens[i].Id == id {
+			return tokens[i]
 		}
 	}
 

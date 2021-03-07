@@ -2,7 +2,7 @@ package parser
 
 import "Container-lang/supporting/structs"
 
-func execute(idToExecute int, token structs.Token, tokenList []structs.Token) {
+func execute(idToExecute int, token structs.Token, tokenList *[]structs.Token) {
 	// return token after finding it in list
 	executedToken := getContainerById(idToExecute, tokenList, token.Id)
 
@@ -14,7 +14,7 @@ func execute(idToExecute int, token structs.Token, tokenList []structs.Token) {
 		// iterate through tokens in block
 		for i := 0; i < len(executedToken.Block); i++ {
 			// recursively call parser function with current token and list of tokens in block
-			Parse(executedToken.Block[i], executedToken.Block)
+			Parse(executedToken.Block[i], &executedToken.Block)
 		}
 	}
 }
