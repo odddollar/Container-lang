@@ -16,14 +16,18 @@ func main() {
 	// get start time
 	start := time.Now()
 
-	// create variables to allow for switching between argparse and dev mode
+	// create variables to allow for argparser
 	var argparser *argparse.Parser
 	var inputFile *string
+	var debug *bool
+
+	// create lines array to read input file
 	var lines []string
 
 	// create argument parser
 	argparser = argparse.NewParser("Container-lang", "Interpreter for the Container-lang programming language")
-	inputFile = argparser.String("f", "file", &argparse.Options{Required: true})
+	inputFile = argparser.String("f", "file", &argparse.Options{Required: true, Help: "The path to the input .cnl file"})
+	debug = argparser.Flag("d", "debug", &argparse.Options{Required: false, Help: "Print token stream and program completion time"})
 
 	// run argument parser
 	if err := argparser.Parse(os.Args); err != nil {
@@ -55,8 +59,10 @@ func main() {
 		}
 	}
 
-	// print token list
-	//fmt.Println(tokenList)
+	// print token list if debug flag given
+	if *debug {
+		fmt.Println(tokenList)
+	}
 
 	// run parser
 	// iterate through array of tokens
@@ -64,6 +70,8 @@ func main() {
 		parser.Parse(tokenList[i], &tokenList)
 	}
 
-	// print completion time
-	fmt.Printf("Finished in: %v", time.Since(start))
+	// print completion time if debug flag given
+	if *debug {
+		fmt.Printf("Finished in: %v", time.Since(start))
+	}
 }
