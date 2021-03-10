@@ -315,3 +315,18 @@ Find factors of 2000000
 {2|REPEAT 1, num+1}
 ```
 
+Find prime numbers up to 1500
+
+```
+{11|BLOCK 9}
+    {1|factors <- 0}
+    {7|BLOCK 3}
+        {4|BLOCK 1}
+            {5|factors <- factors+1}
+        {2|IF i12%i6==0, 4}
+    {6|REPEAT 7, i12+1}
+    {8|BLOCK 1}
+        {10|PRINTLN i12}
+    {9|IF factors==2, 8}
+{12|REPEAT 11, 1500}
+```
